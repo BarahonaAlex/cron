@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!-- .......................................................................
+    ... Indica que se utilizaran anotaciones para los beans de Spring
+    ........................................................................ -->
+    <context:annotation-config />
+
+    <!-- .......................................................................
+    ... Paquete base en donde se encuentran los beans de Spring
+    ........................................................................ -->
+    <context:component-scan base-package="gt.gob.sat.fiscalizacion" />
+    
+    <!-- .......................................................................
+    ... Indica que la configuracion para el manejo de transacciones se realiza
+    ... por medio de anotaciones en las clases especificas. El bean encargado
+    ... de controlar las transacciones es "transactionManager", el cual esta
+    ... definido mas adelante en este archivo
+    ........................................................................ -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    
+    <!-- .......................................................................
+    ... Bean que crea la conexion con la base de datos por medio de JDBC
+    ... este bean se utiliza cuando el Data Source se encuentra controlado
+    ... por la misma aplicacion
+    ........................................................................ -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+        <property name="url" value="jdbc:oracle:thin:@10.111.0.154:1521:DBDESA" />
+        <property name="username" value="AP_FISAT_USR" />
+        <property name="password" value="AP_FISAT_USR" />
+    </bean>
+    
+    <!-- .......................................................................
+    ... Bean de sesion para la base de datos, realiza la integracion con Hibernate
+    ........................................................................ -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan" value="gt.gob.sat.fiscalizacion.fisat.modelo" />
+        <property name="hibernateProperties">
+            <props>
+                <!-- Tipo de lenguaje SQL que utiliza la base de datos -->
+                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+                <!-- Muestra las consultas SQL realizadas por Hibernate -->
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.bytecode.use_reflection_optimizer">true</prop>
+            </props>
+        </property>
+        <property name="configLocation">
+            <value>classpath:META-INF/hibernate.pt.cfg.xml</value>
+        </property>
+    </bean>
+    
+    <!-- .......................................................................
+    ... Bean que controlara las transacciones en Hibernate
+    ........................................................................ -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <!-- .......................................................................
+    ... Bean para manejar las excepciones a nivel de Hibernate
+    ........................................................................ -->
+    <bean id="persistenceExceptionTranslationPostProcessor" 
+          class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+</beans>

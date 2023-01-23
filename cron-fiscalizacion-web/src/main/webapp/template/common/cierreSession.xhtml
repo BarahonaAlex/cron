@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"      
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"> 
+
+
+    <body>  
+        <ui:composition>
+           <p:idleMonitor widgetVar="idle" timeout="1200000" onidle="PF('sessionModalBox').show()" /> 
+            
+           
+           <!-- panel que se muestra cuando la sesion ya expiro 1140000 -->
+           <p:dialog header="#{msgs['global.txtSesion']}" 
+                     widgetVar="sessionModalBox" 
+                     modal="true" 
+                     draggable="false" 
+                     closable="false" 
+                     resizable="false" 
+                     showHeader="true"> 
+               <h:panelGrid columns="2" style="text-align: center;">
+               <p:graphicImage value="/resources/images/session-expired1.png"/>  
+                #{msgs['global.mensajeSesion']}
+               </h:panelGrid>
+           </p:dialog> 
+ 
+           
+        </ui:composition>
+
+    </body> 
+</html>

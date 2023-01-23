@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">	
+    <body>
+        <ui:composition>
+            <div class="header1">
+                <div class="container">
+                    <div class="row">
+                        <div style="width: 10px;height: 20px;">
+                            <img src="#{request.getContextPath()}/resources/images/logoSAT.png" border="0" alt="logoSAT5cm.png" />
+                        </div>
+                        <p style="font-family: Rockwell, Georgia, Times New Roman, Times, serif;font-size: 2.2em; color: #194294;text-shadow: 0px 2px 3px #F2F2F2;text-align: right;padding-top: 0%;">
+                            #{tituloPagina}</p>
+                    </div>
+                </div>
+            </div>
+
+            <h:form id="frmDetalleUsuario">
+                <div id="detalleUsuario" class="header2">
+                    <div class="container">
+                        <h:outputText id="infoUsuario" value="#{sessionUtil.usuarioDto.usuario} ╬ " /><span id="fechaHeader"/><h:outputText id="espacio" value="&nbsp;&nbsp;" />
+                    </div>
+                </div>
+            </h:form>
+
+            <div id="detalleClienteWeb" class="blackSat">
+                <div  class="container">                
+                    <p:outputLabel id="focus" value="#{msgs['man.detalleCliente']}" />
+                    <p:tooltip for="focus" >
+                        <ul style="text-align: left;">
+                            <li>#{msgs['man.tipoCliente']}: #{sessionUtil.userAgentInfo.typeName}</li>
+                            <li>#{msgs['man.nombreCliente']}: #{sessionUtil.userAgentInfo.name}</li>
+                            <li>#{msgs['man.versionCliente']}: #{sessionUtil.userAgentInfo.versionNumber.toVersionString()}</li>
+                            <li>#{msgs['man.fabricanteCliente']}: #{sessionUtil.userAgentInfo.producer}</li>
+                            <li>#{msgs['man.tipoDispositivo']}: #{sessionUtil.userAgentInfo.deviceCategory.name}</li>
+                            <li>#{msgs['man.sistemaOperativo']}: #{sessionUtil.userAgentInfo.operatingSystem.name} #{sessionUtil.userAgentInfo.operatingSystem.versionNumber.toVersionString()}</li>
+                        </ul>
+                    </p:tooltip>
+                </div>                
+            </div>
+        </ui:composition>
+    </body>
+</html>

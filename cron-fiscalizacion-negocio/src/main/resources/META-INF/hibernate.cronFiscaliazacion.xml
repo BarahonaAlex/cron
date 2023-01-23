@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <!-- ....................................................................... 
+    ... Consulta utilizadas por cron
+    ........................................................................ -->
+    
+    <sql-query name="getHistoricoTransacciones">
+        <![CDATA[ 
+            SELECT TO_CHAR(FECHA_OPERACION,'dd/MM/yyyy HH:MI AM') AS "fechaTransaccion",
+                OPERACION AS "operacion",
+                USUARIO    AS "usuario",
+                COMENTARIO AS "comentario"
+            FROM PAPELES_BITACORA
+            WHERE FECHA_OPERACION BETWEEN :pFechaInicial AND :pFechaFinal+0.9999
+
+            UNION
+
+            SELECT  TO_CHAR(FECHA_INGRESO,'dd/MM/yyyy HH:MI AM'),
+                'CARGA DE FORMATO',
+                USUARIO_INGRESO,
+                '(1) CODIGO: '||CODIGO||' (2) VERSION '||VERSION ||' (3) NOMBRE: '||NOMBRE
+            FROM PAPELES_FORMATO
+            WHERE VERSION >0 AND FECHA_INGRESO  BETWEEN :pFechaInicial AND :pFechaFinal+0.9999
+            ORDER BY 1
+         ]]>   
+    </sql-query> 
+    
+    
+    
+    <!-- ....................................................................... 
+            Devuelve el contenido para la notificacion seleccionada
+    ........................................................................ -->
+    <sql-query name="obtenerNotificacionSinAnexo">
+        <![CDATA[ 
+            SELECT  DESTINATARIO AS "destinatario",
+                    CUERPO AS "cuerpo",
+                    FORMATO_HTML AS "formatoHtml",
+                    ASUNTO AS "asunto"
+            FROM IPT_NOTIFICACION
+            WHERE CODIGO=:pCodigo
+         ]]>   
+    </sql-query> 
+    
+    <!-- ....................................................................... 
+            Devuelve los datos para enviar notificaciones por incumplimiento de 
+            anexo del ISR en la vista Materializada (Utiliza correos de RTU)
+    ........................................................................ -->
+    <sql-query name="incumplimientoAnexoISR">
+        <![CDATA[ 
+           SELECT 
+                VISTA."anioFiscal" AS "anioFiscal",
+                VISTA."nit"  AS "nit",
+                VISTA."nombre"  AS "nombre",
+                VISTA."email"  AS "email",
+                VISTA."direccion" AS "direccion"
+            FROM (
+                  SELECT 
+                        VISTA_ANEXO."anioFiscal",
+                        VISTA_ANEXO."nit", 
+                        VISTA_ANEXO."nombre",
+                        VISTA_ANEXO."valorCampo",
+                        VISTA_ANEXO."email",
+                        VISTA_ANEXO."direccion",       
+                        MAX(VISTA_ANEXO."declaro")AS "declaro",
+                        MAX(VISTA_ANEXO."fecha") AS "fecha"
+                    FROM  IPT_CUMPLIMIENTO_ANEXO_MV VISTA_ANEXO
+                    WHERE
+                            VISTA_ANEXO."anioFiscal" < :pPeriodo 
+                        and VISTA_ANEXO."anioFiscal" >= 2015
+                        and substr(nvl(vista_anexo.afiliacion_isr_status, ' '), 1, 1) <> 'I' /* 30/11/2022 Ticket#10000060915 no notificar contribuyentes con afiliación ISR inactiva */                        
+                        GROUP BY  VISTA_ANEXO."nit", VISTA_ANEXO."nombre", VISTA_ANEXO."anioFiscal", 
+                                  VISTA_ANEXO."valorCampo",VISTA_ANEXO."direccion", VISTA_ANEXO."email"
+                        ORDER BY "declaro" desc,"fecha"
+            ) VISTA 
+            WHERE 
+                 VISTA."declaro"='NO' AND VISTA."valorCampo"=1  AND 
+                 VISTA."fecha" = (SELECT  MAX(pp."fecha") FROM  IPT_CUMPLIMIENTO_ANEXO_MV pp WHERE  pp."nit"= VISTA."nit"  AND pp."anioFiscal" =VISTA."anioFiscal")
+         ]]>   
+    </sql-query> 
+
+    
+    
+        
+    <!-- ....................................................................... 
+            Devuelve los correos que se encuentran en Bancos_contratos que no
+            estan dentro de la vista materializada (Incumplimiento ANEXO ISR)
+    ........................................................................ -->
+    <sql-query name="correosBA_CONTRATOS">
+        <![CDATA[ 
+            SELECT  
+                C.NIT AS "nit",
+                C.EMAIL AS "email"
+            FROM 
+                BA_CONTRATOS_DE C
+            WHERE 
+                C.NIT IN (SELECT "nit" FROM IPT_CUMPLIMIENTO_ANEXO_MV WHERE "declaro"='NO' AND "email" IS NULL) 
+                AND C.EMAIL != 'NOTIENE'  AND C.EMAIL !='No Especificado'
+                AND C.STATUS = 'A'
+                AND C.NUMERO_CONTRATO = (SELECT MAX(NUMERO_CONTRATO) 
+                                         FROM BA_CONTRATOS_DE
+                                         WHERE NIT = C.Nit AND EMAIL!= 'NOTIENE' AND C.EMAIL !='No Especificado' AND STATUS = 'A')
+         ]]>   
+    </sql-query> 
+    
+    
+    
+    
+    <!-- ............................................................................... 
+        Devuelve los correos que se encuentran SAT_EN_LINEA_SOLICITUDES y 
+        que no estan en Bancos_contratos ni vista materializada FI_FISCALIZACION (RTU)
+    ................................................................................. -->
+    <sql-query name="correos_SAT_EN_LINEA">
+        <![CDATA[ 
+            SELECT 
+                NIT_USUARIO AS "nit",
+                EMAIL AS "email"
+            FROM 
+                SAT_EN_LINEA_SOLICITUDES S 
+            WHERE 	
+                NIT_USUARIO IN (SELECT "nit" FROM IPT_CUMPLIMIENTO_ANEXO_MV WHERE "declaro"='NO' AND "email" IS NULL) 
+                AND ID_SOLICITUD = (SELECT MAX(ID_SOLICITUD)
+                                    FROM SAT_EN_LINEA_SOLICITUDES 
+                                    WHERE NIT_USUARIO= S.NIT_USUARIO)
+                AND NIT_USUARIO NOT IN 
+                            (SELECT  C.NIT AS "nit"
+                             FROM 
+                                BA_CONTRATOS_DE C
+                              WHERE 
+                                C.NIT IN (SELECT "nit" FROM IPT_CUMPLIMIENTO_ANEXO_MV WHERE "declaro"='NO' AND "email" IS NULL) 
+                                AND C.EMAIL != 'NOTIENE'  AND C.EMAIL !='No Especificado'
+                                AND C.STATUS = 'A'
+                                    AND C.NUMERO_CONTRATO = (SELECT MAX(NUMERO_CONTRATO) 
+                                                                FROM BA_CONTRATOS_DE
+                                                                WHERE 
+                                                                NIT = C.Nit AND EMAIL!= 'NOTIENE' 
+                                                                AND C.EMAIL !='No Especificado' AND STATUS = 'A')) 
+         ]]>   
+    </sql-query> 
+    
+    
+    
+    
+</hibernate-mapping>

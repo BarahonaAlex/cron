@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    
+    <application>
+        <!-- Conector entre el contexto de Spring y JSF -->
+        <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver> 
+                
+        <resource-bundle>
+            <base-name>gt.gob.sat.fiscalizacion.cron.web.resources.messages</base-name>
+            <var>msgs</var>
+        </resource-bundle>
+	   	   
+        <!-- Localidades soportadas -->
+        <locale-config>
+            <default-locale>es</default-locale>
+            <supported-locale>es_GT</supported-locale>
+        </locale-config>
+    </application>
+     
+<!--    <render-kit>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>org.primefaces.component.FileUploadRenderer</renderer-type>
+            <renderer-class>gt.gob.sat.arquitectura.fwk.web.upload.FileUploadRenderer</renderer-class>
+        </renderer>
+    </render-kit>-->
+
+</faces-config>

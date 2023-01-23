@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.zeroturnaround.com" xsi:schemaLocation="http://www.zeroturnaround.com http://www.zeroturnaround.com/alderaan/rebel-2_0.xsd">
+
+	<classpath>
+		<dir name="D:\Repositorio\SAQBE CONTRIBUYENTES\trunk\Componentes\SAQBE Contribuyentes - Web\target\test-classes">
+		</dir>
+		<dir name="D:\Repositorio\SAQBE CONTRIBUYENTES\trunk\Componentes\SAQBE Contribuyentes - Web\target\classes">
+		</dir>
+	</classpath>
+
+	<web>
+		<link target="/">
+			<dir name="D:\Repositorio\SAQBE CONTRIBUYENTES\trunk\Componentes\SAQBE Contribuyentes - Web\src\main\webapp">
+			</dir>
+			<dir name="D:\Repositorio\SAQBE CONTRIBUYENTES\trunk\Componentes\SAQBE Contribuyentes - Web\src\main\webapp\resources"/>
+		</link>
+	</web>
+
+</application>

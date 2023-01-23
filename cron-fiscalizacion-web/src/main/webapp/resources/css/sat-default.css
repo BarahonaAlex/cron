@@ -1,0 +1,278 @@
+@CHARSET "ISO-8859-1";
+body {	
+	color: #000;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	font-family: verdana;
+	font-size: 11px;
+	font-style: normal;
+	text-decoration: none;
+	background-color: #61768E !important;
+}
+
+#page { 
+    margin: 5px auto;
+	top: 0px;
+	padding: 5px;
+	background: #F0F4F8; /*#fafafa;*/
+	width: 95%;
+	/*min-width: 768px;*/
+	/*text-align: left;*/
+	border-right:2px solid #e0e0e0;
+	border-bottom:2px solid #e0e0e0;
+	/*-moz-border-radius: 15px;*/
+}
+
+.area_botones {
+	width: 50%;
+	text-align: center;
+	padding: 10px;
+	background-color: #e1edf4;
+	border: 1px solid #FFCC33 !important;
+}
+
+#page .breadcrumbs {
+	font-size: 13px;
+	text-align: left;
+	float: left;
+	//color: #194294;		
+	font-family: "Lucida Grande", Verdana;
+	font-weight: bold;
+}
+
+.bloque { /*display:block;
+	position:relative;*/
+	background-color: #fff;
+	border: 1px #e0e0e0 solid;
+	/*margin: 5px;
+	margin-left:auto;
+	margin-right:auto;*/
+	padding: 3px;
+	text-align: left;
+	z-index: 1;
+}
+
+.bloque a {
+	color: #00f;
+	text-decoration: none;
+}
+
+.bloque a:hover {
+	color: #00f;
+	text-decoration: underline;
+}
+
+.bloque a:visited {
+	color: #00f;
+	text-decoration: none;
+}
+
+#bloque #texto {
+	font-size: 11px;
+	display: block;
+	position: relative;
+	margin: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 95%;
+	text-align: justify;
+	color: #000;
+}
+
+#page table {
+	font-size: 11px;
+	font-family: "Lucida Grande", Verdana;
+}
+
+#page .nombreAtributo {
+	color: black;		
+	font-size: 13px;
+	text-align: left;
+	font-family: "Lucida Grande", Verdana;
+}
+
+.ui-fieldset {
+	background-color: #ffffff;
+	padding: 5px;
+	text-align: left;
+	margin: 2px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-o-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	border: 1px solid #d7d7d7;
+}
+
+.ui-fieldset .ui-fieldset-legend {
+	//background-color: #194294;
+	border-top: 1px solid #f0f0f0;
+	border-left: 1px solid #f0f0f0;
+	border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	background-color: #000 !important;
+	cursor: default;
+	font: normal bold 12px "Lucida Grande", Verdana !important;
+	font-color: #ffffff !important; 
+}
+
+.pe-inputNumber, .hasDatepicker, .ui-selectonemenu{
+	 background: white !important;
+	 border: 1px solid #aaaaaa !important;   
+	 color: #000 !important;				 
+}   
+
+#page .boton_app {
+	background: #6a8dad;
+	color:#fff;
+	font-family: "Lucida Grande", Verdana;
+	font-weight: bold;
+	font-size: 12px;
+	border: 1px solid #b1b1b1;
+	margin-right: 3px;
+}
+
+#page .boton_app:hover,.boton_app a,.boton_app a:hover,.boton_app a:visited {
+	background: #fc9;
+	color: #f60;
+	text-decoration: none;
+	border-color: #f60;
+}
+
+#page .ui-custompanelgrid, .ui-custompanelgrid td {
+	text-align: right;
+	width: 100%;	
+}
+
+#page .filterOutPut {
+	/*width:150px;*/
+	background: #fff !important;
+}
+
+.someCssClassName {
+    background-image: url(../../resources/images/iconoEdit.png)
+}
+
+
+.color_tabla{    
+    background: #F2F5F9;
+}
+
+.color_sub_tabla{    
+    background: #FDFDA7;
+}
+ 
+.ui-icon-viNombra{
+    background-image: url("#{resource['images/viNombramiento.png']}") !important;
+    background-color: transparent; 
+    background-repeat: no-repeat;  
+    background-size: 16px 16px;
+}
+
+.ui-icon-download16{
+    background-image: url("#{resource['images/down2-16.png']}") !important;
+    background-color: transparent; 
+    background-repeat: no-repeat;  
+    background-size: 16px 16px;
+}
+
+.ui-icon-delete{
+    background-image: url("#{resource['images/remove16.png']}") !important;
+    background-color: transparent; 
+    background-repeat: no-repeat;  
+    background-size: 16px 16px;
+}
+
+.ui-icon-nombramiento{
+    background-image: url("#{resource['images/nombramiento.png']}") !important;
+    background-color: transparent; 
+    background-repeat: no-repeat;  
+    background-size: 16px 16px;
+}
+
+.ui-icon-reqinfo{
+    background-image: url("#{resource['images/reqinfo.png']}") !important;
+    background-color: transparent; 
+    background-repeat: no-repeat;  
+    background-size: 16px 16px;
+}
+
+.ui-icon-notificacion{
+    background-image: url("#{resource['images/notificacion.png']}") !important;
+    background-color: transparent; 
+    background-repeat: no-repeat;  
+    background-size: 16px 16px;
+}
+
+.ui-icon-informe {
+    background-image: url("#{resource['images/informe.png']}") !important;
+    background-color: transparent; 
+    background-repeat: no-repeat;  
+    background-size: 16px 16px;
+}
+
+.ui-icon-informe {
+    background-image: url("#{resource['images/informe.png']}") !important;
+    background-color: transparent; 
+    background-repeat: no-repeat;  
+    background-size: 16px 16px;
+}
+
+.ui-icon-audiencia {
+    background-image: url("#{resource['images/audiencia.png']}") !important;
+    background-color: transparent; 
+    background-repeat: no-repeat;  
+    background-size: 16px 16px;
+}
+
+.ui-icon-liquidacion {
+    background-image: url("#{resource['images/liquidacion.png']}") !important;
+    background-color: transparent; 
+    background-repeat: no-repeat;  
+    background-size: 16px 16px;
+}
+
+
+.ui-icon-nuevoReqInfo {
+    background-image: url("#{resource['images/nuevoReqInfo.png']}") !important;
+    background-color: transparent; 
+    background-repeat: no-repeat;  
+    background-size: 16px 16px;
+}
+
+.ui-icon-infoBan {
+    background-image: url("#{resource['images/infoBan.png']}") !important;
+    background-color: transparent; 
+    background-repeat: no-repeat;  
+    background-size: 16px 16px;
+}
+
+.ui-icon-levProve{
+    background-image: url("#{resource['images/levProve.png']}") !important;
+    background-color: transparent; 
+    background-repeat: no-repeat;  
+    background-size: 16px 16px;
+}
+
+.ui-icon-suspAudi{
+    background-image: url("#{resource['images/suspAudi.png']}") !important;
+    background-color: transparent; 
+    background-repeat: no-repeat;  
+    background-size: 16px 16px;
+}
+
+.ui-icon-guiaAudit{
+    background-image: url("#{resource['images/guiaAudit.png']}") !important;
+    background-color: transparent; 
+    background-repeat: no-repeat;  
+    background-size: 16px 16px;
+}
+
+.ui-icon-finAudi{
+    background-image: url("#{resource['images/finAudi.png']}") !important;
+    background-color: transparent; 
+    background-repeat: no-repeat;  
+    background-size: 16px 16px;
+}
+
+

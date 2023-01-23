@@ -1,0 +1,368 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <!-- Parent default common web -->
+    <parent>
+        <groupId>sat.config</groupId>
+        <artifactId>sat-war</artifactId>
+        <version>3.0.0</version>
+    </parent>
+  
+    <!-- Project Information -->  
+    <groupId>gt.gob.sat.fiscalizacion</groupId>
+    <artifactId>Cron-fiscalizacion</artifactId>
+    <version>1.0.1</version>
+    <packaging>war</packaging>
+    <name>cron-fiscalizacion-web-${project.version}</name>
+    <description>Modulo para programar tareas</description>
+    
+    <properties>
+        <!--
+        Indica el nombre final para el archivo WAR generado, los dos numerales
+        y el numero de version no se toman como CONTEXTO para la despliegue, Tomcat
+        los utiliza para saber la version de la aplicacion y por realizar despliegues
+        paralelos
+        -->
+        <proyecto.nombreFinal>cron-fiscalizacion-web##${project.version}</proyecto.nombreFinal>
+
+        <!-- Nombre del paquete principal, se asume la estructura gt.gob.sat.aduanas.paquetePrincipal -->
+        <proyecto.paquetePrincipal>contribuyentes</proyecto.paquetePrincipal>
+
+        <buildNumber>${maven.build.timestamp}</buildNumber>
+        <!--
+         en caso de utilizarse Netbeans para el desarrollo, esta propiedad le
+         indica que servidor se esta utilizando, este servidor debe de estar
+         configurado en Netbeans, esto es utilizado para facilitar los despliegues
+         y depuraciones
+        -->
+        <!--netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server-->
+    </properties>
+    
+  
+    <dependencies>
+              
+        <dependency>
+            <groupId>gt.gob.sat.fiscalizacion</groupId>
+            <artifactId>cron-fisca-negocio</artifactId>
+            <version>1.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+                             
+        <dependency>
+            <groupId>gt.gob.sat.arquitectura</groupId>
+            <artifactId>fwk-web</artifactId>
+            <version>2.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <!-- aca inician las libretias que ya se encuentran en el server -->
+        
+       
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.7.0</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.3</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+            <version>1.6</version>
+            <scope>provided</scope>
+        </dependency>
+       
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.1</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <!--
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.3</version>
+            <scope>provided</scope>
+        </dependency>
+        -->
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.3.2</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        
+        
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>1.3.1</version>
+            <scope>provided</scope>
+        </dependency>
+       
+        
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk14</artifactId>
+            <version>1.38</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bctsp-jdk14</artifactId>
+            <version>1.38</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcmail-jdk14</artifactId>
+            <version>1.38</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>4.2.1</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>jfree</groupId>
+            <artifactId>jcommon</artifactId>
+            <version>1.0.15</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+           <groupId>org.apache.poi</groupId>
+           <artifactId>poi</artifactId>
+           <version>3.13</version>            
+       </dependency>
+        
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>            
+            <version>1.0.b2</version>
+            <scope>provided</scope>            
+        </dependency>
+   
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>3.2.2.RELEASE</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- ...................................................................
+        ... Permite el analisis del user-agent del cliente web
+        .................................................................... -->
+        <dependency>
+            <groupId>net.sf.uadetector</groupId>
+            <artifactId>uadetector-resources</artifactId>
+            <version>2013.10</version>
+            <scope>compile</scope>           
+        </dependency>
+        
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.12</version>
+            <scope>provided</scope>
+        </dependency>
+
+        
+        
+        <!-- terminan las librerias que ya se encuentran en el server-->
+        
+        
+        <!-- ...................................................................
+        ... Dependencias para SEGURIDAD
+        .................................................................... -->
+        <dependency>
+            <groupId>gt.gob.sat.arquitectura.seguridad</groupId>
+            <artifactId>security-agent-local</artifactId>
+            <version>1.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!--
+        <dependency>
+            <groupId>gt.gob.sat.arquitectura.seguridad</groupId>
+            <artifactId>security-agent</artifactId>
+            <version>2.0.6</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        -->
+        
+        <dependency>
+            <groupId>gt.gob.sat.arquitectura.seguridad</groupId>
+            <artifactId>crypto-utils</artifactId>
+            <version>1.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.swinglabs</groupId>
+            <artifactId>pdf-renderer</artifactId>
+            <version>1.0.5</version>
+            <scope>compile</scope>
+        </dependency>
+            
+	  
+        <dependency>
+            <groupId>net.sf.barcode4j</groupId>
+            <artifactId>barcode4j-light</artifactId>
+            <version>2.0</version>
+        </dependency>
+	
+        <dependency>
+            <groupId>net.glxn</groupId>
+            <artifactId>qrgen</artifactId>  <!-- QR code support -->
+            <version>1.4</version>
+        </dependency>
+	  	  
+        <!-- javamelody-core -->
+        <dependency>
+            <groupId>net.bull.javamelody</groupId>
+            <artifactId>javamelody-core</artifactId>
+            <version>1.52.0</version>
+        </dependency>
+        
+       
+
+        <!-- itext, option to add PDF export -->
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>2.1.7</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>bcmail-jdk14</artifactId>
+                    <groupId>bouncycastle</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>bcprov-jdk14</artifactId>
+                    <groupId>bouncycastle</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>bctsp-jdk14</artifactId>
+                    <groupId>bouncycastle</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.8.1</version>
+            <scope>test</scope>
+        </dependency>   
+        <dependency>
+            <groupId>net.sf.uadetector</groupId>
+            <artifactId>uadetector-core</artifactId>
+            <version>0.9.10</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.uadetector</groupId>
+            <artifactId>uadetector-resources</artifactId>
+            <version>2013.10</version>
+            <type>jar</type>
+        </dependency> 
+        <dependency>
+            <groupId>org.primefaces.extensions</groupId>
+            <artifactId>primefaces-extensions</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <dependency>  
+            <groupId>org.primefaces.themes</groupId>  
+            <artifactId>cupertino</artifactId>  
+            <version>1.0.10</version>
+        </dependency> 
+        
+        
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-scratchpad</artifactId>
+            <version>3.7</version>
+            <type>jar</type>
+        </dependency>
+        
+        
+        
+        
+       
+        
+        
+        
+    </dependencies>
+    
+    <build>        
+        <finalName>cron-fiscalizacion-web</finalName>    
+        <resources> 
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/java/gt/gob/sat/fiscalizacion/${proyecto.paquetePrincipal}/web/resources</directory>
+                <targetPath>gt/gob/sat/fiscalizacion/${proyecto.paquetePrincipal}/web/resources</targetPath>
+                <filtering>true</filtering>
+                <includes>
+                    <include>messages*.properties</include>
+                </includes>
+            </resource>            
+        </resources> 
+    </build>        
+  
+</project> 

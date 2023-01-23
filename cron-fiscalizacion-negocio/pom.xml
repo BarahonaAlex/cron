@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+    
+    <groupId>gt.gob.sat.fiscalizacion</groupId>
+    <artifactId>cron-fisca-negocio</artifactId>
+    <version>1.0.1</version>
+    <packaging>jar</packaging>
+    <name>${project.build.finalName}</name>
+    <inceptionYear>2015</inceptionYear>
+    
+    
+    <!-- .......................................................................
+    ... Informacion de quien desarrolla este artefacto
+    ........................................................................ -->
+    <organization>
+        <name>Superintendencia de Administracion Tributaria</name>
+        <url>http://www.sat.gob.gt</url>
+    </organization>
+    <developers>
+        <developer>
+            <id>rabaraho</id>
+            <name>Roberto Alexander Barahona Peque</name>
+            <email>rabaraho@sat.gob.gt</email>
+        </developer>
+    </developers>
+    
+    
+    <!-- .......................................................................
+    ... Proyecto principal
+    ........................................................................ -->
+    <parent>
+        <groupId>gt.gob.sat.fiscalizacion</groupId>
+        <artifactId>fiscalizacion-parent-main</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    
+    
+    <!-- .......................................................................
+    ... Declaracion de las dependencias del proyecto
+    ........................................................................ -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <!--
+        driver JDBC de oracle, el scope compile solo se debe de colocar cuando
+        se van a crear los POJO, despues de esto se debe de cambiar a test.
+        -->
+        <dependency>
+            <groupId>ojdbc</groupId>
+            <artifactId>ojdbc</artifactId>
+            <version>14</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- ...................................................................
+        ... Dependencias de modulos utilitarios
+        .................................................................... -->
+        <dependency>
+            <groupId>gt.gob.sat.fiscalizacion</groupId>
+            <artifactId>fisat-core</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.13</version>            
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.13</version>            
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>ooxml-schemas</artifactId>
+            <version>1.1</version>
+        </dependency>
+       
+        
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.1</version>
+            <type>jar</type>
+        </dependency>
+        <!--<dependency>
+            <groupId>gt.gob.sat.aduanas</groupId>
+            <artifactId>aduana-utilitarios-core</artifactId>
+            <version>1.3.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>gt.gob.sat.fiscalizacion</groupId>
+            <artifactId>Cron-fiscalizacion</artifactId>
+            <version>1.0.0</version>
+            <type>war</type>
+        </dependency>-->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
+    
+</project>

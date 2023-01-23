@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"            
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title><ui:insert name="pageTitle">#{tituloPagina}</ui:insert></title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        
+        <h:outputScript name="jquery/jquery.js" library="primefaces" />
+        <h:outputScript name="jquery/jquery-plugins.js" library="primefaces" />        
+        <h:outputStylesheet name="primefaces.css" library="primefaces" />
+        <h:outputStylesheet name="sat-default.css" library="css" />
+        <h:outputStylesheet name="theme.css" library="css"/>        
+        
+        <script src="#{request.getContextPath()}/resources/js/theme.js" type="text/javascript" />   
+    </h:head>
+
+    <h:body onload="onreload()">
+        <script language="javascript">
+            document.oncontextmenu = function () {
+                return false
+            };
+            document.ondragstart = function () {
+                return false
+            };
+        </script>
+        <div id="page" class="ui-fluid">
+
+            <!--Se elimina encabezado al entrar por SAQBE
+            <div id="header">
+                <ui:insert name="header">
+                    <ui:include src="/template/common/header.xhtml" />
+                </ui:insert>
+            </div>
+            -->
+            <div id="content" style="width: 100%">
+                <!-- mensaje para exploradores incompatibles -->
+                <p:panel rendered="#{sessionUtil.userAgentInfo == null}" style="background-color:transparent; border-width: 0;">
+                    <div class="alert alert-warning"><p>#{msgs['man.advertenciaExplorador1']}</p></div>
+                </p:panel>
+
+                <p:panel rendered="#{sessionUtil.userAgentInfo != null}" style="background-color:transparent; border-width: 0;">
+                    <p:panel rendered="#{sessionUtil.exploradorIncompatible}" style="background-color:transparent; border-width: 0;">
+                        <div class="alert alert-danger"><p>#{msgs['man.advertenciaExplorador2']}</p></div>
+                    </p:panel>
+                </p:panel>
+                <h:form id="formContent">
+                    <ui:insert name="content">
+                        <ui:include src="/template/common/content.xhtml" />
+                    </ui:insert>		   			
+                    <ui:insert name="data" />
+                    <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" oncomplete="PF('statusDialog').hide()"/>
+                    <!-- cambiar timeout para la sesion 1 min = 60000 milisegundos multiplicar x la cantidad de min -->
+                    <!--<p:idleMonitor widgetVar="idle" timeout="300000" onidle="PF('sessionModalBox').show()" />-->
+                </h:form>
+            </div>
+            <!--Se elimina encabezado al entrar por SAQBE
+            <div id="footer">
+                <ui:insert name="footer">
+                    <ui:include src="/template/common/footer.xhtml" />
+                </ui:insert>
+            </div>
+            -->
+            <!-- panel que bloquea la pagina cuando se realizan peticiones -->
+            <p:dialog widgetVar="statusDialog" header="#{msgs['general.tituloEstatus']}" modal="true" 
+                      draggable="false" closable="false" resizable="false" showHeader="true"
+                      width="330" minWidth="330" >
+                <h:panelGrid columns="2" style="text-align: center;">
+                    <p:graphicImage value="/resources/images/loader.gif" />
+                    <p:outputLabel value="#{msgs['general.mensajeEstatus']}" />
+                </h:panelGrid>
+            </p:dialog>
+
+            <!-- panel que se muestra cuando la sesion ya expiro -->
+            <p:dialog header="#{msgs['general.tituloSesion']}" widgetVar="sessionModalBox" modal="true" 
+                      draggable="false" closable="false" resizable="false" showHeader="true"
+                      width="355" minWidth="355" > 
+                <h:panelGrid columns="2" style="text-align: center;">
+                    <p:graphicImage value="/resources/images/session-expired.png"/> 
+                    <p:outputLabel value="#{msgs['general.mensajeSesion']}" />
+                </h:panelGrid>
+            </p:dialog>
+        </div>
+    </h:body>
+</html>

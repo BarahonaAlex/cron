@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <f:view contentType="text/html" locale="en">
+        <h:head> 
+        </h:head>
+        <h:body>
+            <ui:composition template="../../template/common/layout.xhtml">
+                <ui:define name="data">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <center>
+                                <p:fieldset  legend="#{msgs['msgBitacora.tituloPrincipal']}"
+                                             style="width: 95%;">
+                                    <p:panel id="pnlOpciones" style="margin-bottom:10px;">
+                                        <div align="center">
+                                            <p:messages id="notificaciones" autoUpdate="true" showSummary="true" closable="true" showDetail="true" for="Notificaciones">
+                                                <p:effect type="Fold" event="load" delay="500" />
+                                            </p:messages>
+                                            <h:inputHidden id="Notificaciones"/>
+                                            <h:panelGrid columns="5" cellpadding="5" >
+                                                <p:outputLabel value="#{msgs['msgBitacora.correoAutomatico']}" />
+                                                
+                                            </h:panelGrid>
+                                        </div>
+                                    </p:panel> 
+                                </p:fieldset>
+                            </center>
+                            <!--</h:form>-->
+                        </div>
+                    </div>
+
+
+                </ui:define>
+            </ui:composition>
+        </h:body>
+    </f:view>
+</html>
